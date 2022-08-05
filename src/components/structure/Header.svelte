@@ -16,7 +16,7 @@
 
 <div id="header" class="header-container">
   <a href="/" class="name-container">
-    <p class="name-text">MY NAME</p>
+    <p class="name-text">Henry Faulkner</p>
   </a>
   <div class="not-name-cont">
     {#each Object.entries(headerLinks) as [title, link]}
@@ -45,7 +45,7 @@
 
   .not-name-cont {
     display: flex;
-    flex-direction: row;
+    @apply lt-sm:flex-col lt-sm:ml-6 lt-xsm:ml-0 xsm:mr-4 md:flex-row;
     justify-content: space-around;
     flex-wrap: wrap;
     flex-grow: 1;
@@ -58,6 +58,7 @@
 
   .name-container {
     padding: 10px;
+    @apply lt-xsm:pr-1 lt-xsm:w-3/4;
   }
   .name-text {
     font-size: 3em;

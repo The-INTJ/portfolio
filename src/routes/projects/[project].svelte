@@ -49,11 +49,15 @@
     {#if project.featured_video}
       <p>Placeholder for Featured Video implementation.</p>
     {:else if project.featured_image}
-      <p>BRRRR</p>
+      <p>Placeholder for Featured Image implementation.</p>
     {/if}
   </div>
 
-  <TitleDescription title={project.title} description={project.description} />
+  <TitleDescription title={project.title}>
+    <p slot="p-tag">
+      {project.description}
+    </p>
+  </TitleDescription>
   <Gallery
     gallery_images={project.gallery_images}
     gallery_videos={project.gallery_videos}

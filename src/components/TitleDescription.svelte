@@ -1,11 +1,10 @@
 <script>
   export let title;
-  export let description;
 </script>
 
 <div class="TitleDescription">
   <h3>{title}</h3>
-  <p>{description}</p>
+  <slot name="p-tag" />
 </div>
 
 <style>
@@ -16,7 +15,7 @@
   h3 {
     @apply mt-0;
     @apply text-primary font-manrope font-normal text-2xl;
-    @apply mb-16;
+    @apply mb-6;
   }
 
   p {

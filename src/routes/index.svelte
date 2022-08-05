@@ -19,6 +19,13 @@
       };
     }
   }
+  export function scrollIntoView(target) {
+    const el = document.querySelector(target.getAttribute("href"));
+    if (!el) return;
+    el.scrollIntoView({
+      behavior: "smooth",
+    });
+  }
 </script>
 
 <script>
@@ -28,18 +35,7 @@
   import Header from "../components/structure/Header.svelte";
   import TitleDescription from "../components/TitleDescription.svelte";
   import Contact from "../components/Contact.svelte";
-
-  let aboutTitle = "About";
-  let aboutDescription =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborumnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatisobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint?";
-
-  let experienceTitle = "Experience";
-  let experienceDescription =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborumnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatisobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint?";
-
-  let skillsTitle = "Skills";
-  let skillsDescription =
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborumnumquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatisobcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint?";
+  import Anchor from "../components/Anchor.svelte";
 
   let headerLinks = {
     About: "#about",
@@ -53,18 +49,86 @@
 
   <div id="content" class="lg:px-44">
     <div id="about">
-      <TitleDescription title={aboutTitle} description={aboutDescription} />
+      <TitleDescription title="About">
+        <p slot="p-tag">
+          Hi, I'm Henry Faulkner. I'm a .NET and JavaScript web developer and
+          software engineer. I have a Bachelor of Science in Computer Science
+          from the
+          <Anchor
+            title="University of Georgia"
+            href="https://www.uga.edu/"
+            className="UGA"
+            external={true}
+          />.
+          <br /> <br />
+          I am passionate about manipulating and making the most of large datasets.
+          I enjoy working through problems and finding sturdy, lasting solutions
+          to solve them. Recently, I have enjoyed digging deeper into cloud platforms
+          to deploy and scale my work.
+        </p>
+      </TitleDescription>
     </div>
 
     <div id="experience">
-      <TitleDescription
-        title={experienceTitle}
-        description={experienceDescription}
-      />
+      <TitleDescription title="Experience">
+        <p slot="p-tag">
+          I am currently a Technical Consultant at
+          <Anchor
+            title="Perficient"
+            href="https://www.perficient.com/"
+            className="Perficient"
+            external={true}
+          />
+          where I work on the Sitecore team, creating enterprise-scale websites.
+          My work there entails building data transfer and custom functionality on
+          top of Sitecore's proprietary CMS framework. That framework from the backend
+          is C#/.NET MVC, communicating with a SQL database. I have also needed to
+          work with Azure, REST API, and React during my tenure. I have been staffed
+          at Perficient since February 2021.
+          <br /> <br />
+          My personnel project experience is more varied. You can find out more about
+          those in the
+          <Anchor
+            title={"Projects section"}
+            href={"#projectShowcase"}
+            className={"Projects"}
+            external={false}
+            on:click={(event) => {
+              event.preventDefault();
+              scrollIntoView(event.target);
+            }}
+          />
+          below. You can also find my resume linked in the
+          <Anchor
+            title={"Contact section"}
+            href={"#contact"}
+            className={"Contact"}
+            external={false}
+            on:click={(event) => {
+              event.preventDefault();
+              scrollIntoView(event.target);
+            }}
+          />
+          below.
+        </p>
+      </TitleDescription>
     </div>
 
     <div id="skills">
-      <TitleDescription title={skillsTitle} description={skillsDescription} />
+      <TitleDescription title="Skills">
+        <p slot="p-tag">
+          I am a fullstack software developer. I have experience creating custom
+          functionality, using large datasets and integrating seamlessly into an
+          existing solution. I have experience doing fullstack web development
+          using modern JavaScript frameworks like React/NextJS and
+          Svelte/SvelteKit but prefer being heads down on the backend, working
+          on the underlying system and architecture.
+          <br /> <br />
+          Some of the technologies I've work with are C#/.NET, NodeJS, JS/TS, React/NextJS,
+          Svelte/SvelteKit, No-SQL/SQL, Firebase, Azure, Python, SASS, and Tailwind
+          but tend to be language agnostic and learn what is neccessary for a task.
+        </p>
+      </TitleDescription>
     </div>
 
     <div id="projectShowcase">
@@ -108,7 +172,6 @@
 
   #projects {
     height: auto;
-    min-height: 800px;
     background-color: black;
     @apply grid sm:grid-cols-2 lg:grid-cols-3 gap-6;
   }
