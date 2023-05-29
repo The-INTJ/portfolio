@@ -7,11 +7,12 @@
       Linkedin: "https://www.linkedin.com/in/henry-faulkner/",
       GitHub: "https://github.com/henryfaulkner",
       Email: "mailto:hfaulkner27@gmail.com",
-      //"Perficient Blogs": "Placeholder",
-      Twitter: "https://twitter.com/HenryFaulknerIO",
       Resume: await getStorageUrl(
-        "resumes/Henry Faulkner - Software Engineer Resume (2022) (1).pdf"
+        "resumes/Henry Faulkner - Software Engineer Resume (Late 2022).pdf"
       ),
+      Blogs: "https://blogs.perficient.com/author/hfaulkner",
+      Twitter: "https://twitter.com/HenryFaulknerIO",
+      Instagram: "https://www.instagram.com/henryfaulkner_makes/",
     };
   }
 </script>
@@ -26,10 +27,11 @@
     {#await getLinks() then links}
       {#each Object.entries(links) as [title, link]}
         <Anchor
-          className={`px-4 py-2 hover:text-primary hover:bg-primary/30 focus:bg-primary/20`}
+          className={`items-center justify-center inlineFlex px-4 py-2 hover:text-primary hover:bg-primary/30 focus:bg-primary/20`}
           {title}
           href={link}
           external={true}
+          color={"text-primary"}
         />
       {/each}
     {/await}

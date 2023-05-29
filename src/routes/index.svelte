@@ -1,5 +1,6 @@
 <script context="module">
   import { getStorageUrl } from "$lib/firebase";
+
   export async function load({ fetch }) {
     const res = await fetch("/firestore/endpoints/projects.json");
     const projects = await res.json();
@@ -36,63 +37,98 @@
   import TitleDescription from "../components/TitleDescription.svelte";
   import Contact from "../components/Contact.svelte";
   import Anchor from "../components/Anchor.svelte";
+  import HeroBanner from "../components/HeroBanner.svelte";
 
   let headerLinks = {
-    About: "#about",
-    Projects: "#projectShowcase",
-    Contact: "#contact",
+    Index: "#index",
+    Experience: "#scroll1",
+    Contact: "#scroll3",
   };
 </script>
 
-<div id="index">
-  <Header {headerLinks} />
+<div id="index" class="scrollSection">
+  <div id="header">
+    <Header {headerLinks} />
+  </div>
+  <HeroBanner />
 
   <div id="content" class="lg:px-44">
-    <div id="about">
+    <div class="about">
+      <div id="scroll4" class="scrollSection" />
       <TitleDescription title="About">
-        <p slot="p-tag">
-          Hi, I'm Henry Faulkner. I'm a .NET and JavaScript web developer and
-          software engineer. I have a Bachelor of Science in Computer Science
-          from the
+        <p slot="p-tag" class="p-tag">
+          Hi, I'm Henry Faulkner. I live in Atlanta, GA, USA. I have a Bachelor
+          of Science in Computer Science from the
           <Anchor
             title="University of Georgia"
             href="https://www.uga.edu/"
             className="UGA"
             external={true}
-          />.
-          <br /> <br />
-          I am passionate about manipulating and making the most of large datasets.
-          I enjoy working through problems and finding sturdy, lasting solutions
-          to solve them. Recently, I have enjoyed digging deeper into cloud platforms
-          to deploy and scale my work.
+            color={"text-primary"}
+          />. I build quality software and web applications.
         </p>
       </TitleDescription>
     </div>
 
-    <div id="experience">
+    <div class="about" id="skills">
+      <TitleDescription title="Skills">
+        <p slot="p-tag" class="p-tag">
+          I am a fullstack web developer and software engineer. I have 3 years
+          of professional experience working with .Net (Framework/Core),
+          TypeScript, T-SQL, Microsoft Azure services, and SCSS. Throughout my
+          career, I've worked with various frontend frameworks such as: Angular,
+          ASP.Net, Next.js and React.
+        </p>
+      </TitleDescription>
+    </div>
+
+    <div class="about" id="experience">
+      <div id="scroll1" class="scrollSection" />
       <TitleDescription title="Experience">
-        <p slot="p-tag">
-          I am currently a Technical Consultant at
+        <p slot="p-tag" class="p-tag">
+          I currently work as a Software Engineer at
           <Anchor
-            title="Perficient"
+            title="Now®"
+            href="https://nowcorp.com/"
+            className="Now"
+            external={true}
+            color={"text-primary"}
+          />. My role at Now is to make major technical upgrades to their
+          flagship financial platform, NowAccount. I designed an overhaul to
+          NowAccount's Client Onboarding Journey using Adobe XD, which is being
+          developed and showcased to prospective investors. I am currently
+          working on the aforementioned Onboarding Journey, which marks the
+          platform's move from MVC (.Net Framework) to REST APIs (.Net Core) and
+          ASP.Net to Angular. I am the frontend architect for NowAccount's new
+          Angular solution. I played a large role in moving our jobs from
+          running on a virtual machine's task scheduler to Azure Functions on
+          Azure's serverless platform. I have worked at Now since October 2022.
+          <br /> <br />
+          I was formerly a Technical Consultant at
+          <Anchor
+            title="Perficient®"
             href="https://www.perficient.com/"
             className="Perficient"
             external={true}
+            color={"text-primary"}
           />
-          where I work on the Sitecore team, creating enterprise-scale websites.
-          My work there entails building data transfer and custom functionality on
-          top of Sitecore's proprietary CMS framework. That framework from the backend
-          is C#/.NET MVC, communicating with a SQL database. I have also needed to
-          work with Azure, REST API, and React during my tenure. I have been staffed
-          at Perficient since February 2021.
+          where I momentarily worked on the Sitecore team, creating enterprise-scale
+          websites. I built data transfer using PowerShell and custom functionality
+          on top of Sitecore's proprietary CMS framework. I later transitioned to
+          Perficient's Custom Development team as a .NET framework and React developer,
+          where I created smaller-scale web applications. During my tenure, I have
+          worked with Azure, .Net Framework, React, T-SQL, Sitecore, and SCSS. I
+          was staffed at Perficient from February 2021 - October 2022 and also interned
+          there.
           <br /> <br />
           My personnel project experience is more varied. You can find out more about
           those in the
           <Anchor
             title={"Projects section"}
-            href={"#projectShowcase"}
+            href={"#scroll2"}
             className={"Projects"}
             external={false}
+            color={"text-primary"}
             on:click={(event) => {
               event.preventDefault();
               scrollIntoView(event.target);
@@ -101,9 +137,10 @@
           below. You can also find my resume linked in the
           <Anchor
             title={"Contact section"}
-            href={"#contact"}
+            href={"#scroll3"}
             className={"Contact"}
             external={false}
+            color={"text-primary"}
             on:click={(event) => {
               event.preventDefault();
               scrollIntoView(event.target);
@@ -114,25 +151,8 @@
       </TitleDescription>
     </div>
 
-    <div id="skills">
-      <TitleDescription title="Skills">
-        <p slot="p-tag">
-          I am a fullstack software developer. I have experience creating custom
-          functionality, using large datasets and integrating seamlessly into an
-          existing solution. I have experience doing fullstack web development
-          using modern JavaScript frameworks like React/NextJS and
-          Svelte/SvelteKit but prefer being heads down on the backend, working
-          on the underlying system and architecture.
-          <br /> <br />
-          Some of the technologies I've work with are C#/.NET, NodeJS, JS/TS, React/NextJS,
-          Svelte/SvelteKit, No-SQL/SQL, Firebase, Azure, Python, SASS, and Tailwind
-          but tend to be language agnostic and learn what is neccessary for a task.
-        </p>
-      </TitleDescription>
-    </div>
-
-    <div id="projectShowcase">
-      <h1 id="title">Project Showcase</h1>
+    <div id="scroll2" class="scrollSection">
+      <h2 id="title">Project Showcase</h2>
       <div id="projects">
         {#each projects as project, i}
           {#await getStorageUrl(project.featured_image) then imageUrl}
@@ -142,7 +162,8 @@
       </div>
     </div>
 
-    <section id="#contact" class="py-12">
+    <section class="scrollSection pt-6 pb-12">
+      <div id="scroll3" class="scrollSection" />
       <Contact />
     </section>
   </div>
@@ -153,6 +174,7 @@
 <style>
   #index {
     color: rgb(209, 213, 219);
+    overflow-x: hidden;
   }
 
   #content {
@@ -174,5 +196,15 @@
     height: auto;
     background-color: black;
     @apply grid sm:grid-cols-2 lg:grid-cols-3 gap-6;
+  }
+
+  .scrollSection {
+    @apply lt-xsm:scroll-mt-36 xsm:scroll-mt-24;
+  }
+
+  .p-tag {
+    @apply lt-xsm:text-base lt-xsm:leading-relaxed;
+    @apply text-base lg:text-xl;
+    @apply mb-12;
   }
 </style>

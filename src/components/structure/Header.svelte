@@ -14,33 +14,46 @@
   export let headerLinks;
 </script>
 
-<div id="header" class="header-container">
-  <a href="/" class="name-container">
-    <p class="name-text">Henry Faulkner</p>
-  </a>
-  <div class="not-name-cont">
-    {#each Object.entries(headerLinks) as [title, link]}
-      <Anchor
-        {title}
-        href={link}
-        className={title}
-        external={false}
-        on:click={(event) => {
-          event.preventDefault();
-          scrollIntoView(event.target);
-        }}
-      />
-    {/each}
+<nav class="z-20 w-screen backdrop-blur-sm">
+  <div id="header" class="header-container">
+    <a title="Header Name link" href="/" class="name-container">
+      <p class="name-text">Henry Faulkner</p>
+    </a>
+    <div class="not-name-cont">
+      {#each Object.entries(headerLinks) as [title, link]}
+        <Anchor
+          {title}
+          href={link}
+          className={title}
+          external={false}
+          color={"text-primary"}
+          on:click={(event) => {
+            event.preventDefault();
+            scrollIntoView(event.target);
+          }}
+        />
+      {/each}
+    </div>
   </div>
-</div>
+</nav>
 
 <style type="text/scss">
+  @media (min-width: 1080px) {
+    nav {
+      @apply fixed;
+    }
+  }
+
   .header-container {
-    background-color: black;
+    background-color: rgb(0, 0, 0, 0.7);
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
+    @media (max-width: 1080px) {
+      background-color: rgb(0, 0, 0);
+    }
   }
 
   .not-name-cont {
@@ -49,6 +62,13 @@
     justify-content: space-around;
     flex-wrap: wrap;
     flex-grow: 1;
+
+    @media (max-width: 1080px) {
+      padding-top: 15px;
+      flex-direction: row;
+      height: 40px;
+      align-items: center;
+    }
   }
 
   .anchor {
@@ -59,6 +79,10 @@
   .name-container {
     padding: 10px;
     @apply lt-xsm:pr-1 lt-xsm:w-3/4;
+
+    @media (max-width: 1080px) {
+      display: none;
+    }
   }
   .name-text {
     font-size: 3em;
