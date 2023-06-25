@@ -59,6 +59,73 @@ type Project = {
   gallery_videos: string[];
 }
 
+type Ingredients = {
+    title: string;
+    ingredients: string[];
+}
+
+type Methods = {
+    title: string;
+    methods: string[];
+}
+
+type Recipe = {
+    title: string;
+    short_description: string;
+    ingredientsList: {
+        title: string,
+        ingredients: string[],
+    }[];
+    methodsList: {
+        title: string,
+        methods: string[],
+    }[];
+    categories: string[];
+    tags: string[];
+    createdDate: Date;
+}
+
+const foodCategories = {
+    all: 'All',
+    american: 'American',
+    baking: 'Baking',
+    indian: 'Indian',
+    italian: 'Italian',
+    mexican: 'Mexican',
+    thai: 'Thai',
+    salad: 'Salad',
+    soup: 'Soup',
+    partySnack: 'Party Snacks' 
+}
+
+const drinkCategories = { 
+    all: 'All',
+    spring: 'Spring',
+    summer: 'Summer',
+    fall: 'Fall',
+    winter: 'Winter',
+}
+
+const foodTags = {
+    beef: 'Beef',
+    bread: 'Bread',
+    chicken: 'Chicken',
+    glutenFree: 'Gluten-Free',
+    pork: 'Pork',
+    vegetarian: 'Vegetarian',
+    vegan: 'Vegan'
+}
+
+const drinkTags = {
+    alcoholic: 'Alcoholic',
+    nonAlcoholic: 'Non-Alcoholic',
+    caffinated: 'Caffinated',
+    gin: 'Gin',
+    vodka: 'Vodka',
+    whiskey: 'Whiskey',
+    rum: 'Rum',
+}
+
 const productSchema = buildSchema<Product>({
     name: "Product",
     properties: {
@@ -178,6 +245,218 @@ const productSchema = buildSchema<Product>({
         }
     }
 });
+
+const foodRecipeSchema = buildSchema<Recipe>({
+    name: "Food Recipe",
+    properties: {
+        title: {
+            title: "Title",
+            validation: { required: true },
+            dataType: "string"
+        }, 
+        short_description: {
+            title: "Short Description",
+            dataType: "string"
+        },
+        ingredientsList: {
+            title: "Ingredients",
+            description: "Ingredients array",
+            validation: { required: true },
+            dataType: "array",
+            of: {
+                dataType: "map",
+                properties: {
+                    title: {
+                        title: "Title",
+                        dataType: "string"
+                    },
+                    ingredients: {
+                        title: "Ingredients",
+                        dataType: "array",
+                        of: {
+                            dataType: "string",
+
+                        }
+                    }
+                }
+            }
+        },
+        methodsList: {
+            title: "Methods",
+            description: "Methods array",
+            validation: { required: true },
+            dataType: "array",
+            of: {
+                dataType: "map",
+                properties: {
+                    title: {
+                        title: "Title",
+                        dataType: "string"
+                    },
+                    methods: {
+                        title: "Methods",
+                        dataType: "array",
+                        of: {
+                            dataType: "string"
+                        }
+                    }
+                }
+            }
+        },
+        categories: {
+            title: "Categories",
+            validation: { required: true },
+            dataType: "array",
+            of: {
+                dataType: "string",
+                config: {
+                    enumValues: foodCategories
+                }
+            }
+        },
+        tags: {
+            title: "Tags",
+            description: "Tags",
+            dataType: "array",
+            of: {
+                dataType: "string",
+                config: {
+                    enumValues: foodTags
+                }
+            }
+        },
+        createdDate: {
+            title: "Created Date",
+            dataType: "timestamp",
+            validation: { required: true },
+        }
+    }
+});
+
+const drinkRecipeSchema = buildSchema<Recipe>({
+    name: "Drink Recipe",
+    properties: {
+        title: {
+            title: "Title",
+            validation: { required: true },
+            dataType: "string"
+        }, 
+        short_description: {
+            title: "Short Description",
+            dataType: "string"
+        },
+        ingredientsList: {
+            title: "Ingredients",
+            description: "Ingredients array",
+            validation: { required: true },
+            dataType: "array",
+            of: {
+                dataType: "map",
+                properties: {
+                    title: {
+                        title: "Title",
+                        dataType: "string"
+                    },
+                    ingredients: {
+                        title: "Ingredients",
+                        dataType: "array",
+                        of: {
+                            dataType: "string",
+
+                        }
+                    }
+                }
+            }
+        },
+        methodsList: {
+            title: "Methods",
+            description: "Methods array",
+            validation: { required: true },
+            dataType: "array",
+            of: {
+                dataType: "map",
+                properties: {
+                    title: {
+                        title: "Title",
+                        dataType: "string"
+                    },
+                    methods: {
+                        title: "Methods",
+                        dataType: "array",
+                        of: {
+                            dataType: "string"
+                        }
+                    }
+                }
+            }
+        },
+        categories: {
+            title: "Categories",
+            validation: { required: true },
+            dataType: "array",
+            of: {
+                dataType: "string",
+                config: {
+                    enumValues: drinkCategories
+                }
+            }
+        },
+        tags: {
+            title: "Tags",
+            description: "Tags",
+            dataType: "array",
+            of: {
+                dataType: "string",
+                config: {
+                    enumValues: drinkTags
+                }
+            }
+        },
+        createdDate: {
+            title: "Created Date",
+            dataType: "timestamp",
+            validation: { required: true },
+        }
+    }
+});
+
+const ingredientsSchema = buildSchema<Ingredients>({
+    name: "Ingredients",
+    properties: {
+        title: {
+            title: "Title",
+            validation: { required: true },
+            dataType: "string"
+        },
+        ingredients: {
+            title: "Ingredients",
+            validation: { required: true },
+            dataType: "array",
+            of: {
+                dataType: "string"
+            }
+        }
+    }
+})
+
+const methodsSchema = buildSchema<Methods>({
+    name: "Methods",
+    properties: {
+        title: {
+            title: "Title",
+            validation: { required: true },
+            dataType: "string"
+        },
+        methods: {
+            title: "Methods",
+            validation: { required: true },
+            dataType: "array",
+            of: {
+                dataType: "string"
+            }
+        }
+    }
+})
 
 const localeSchema = buildSchema({
     customId: locales,
@@ -326,7 +605,51 @@ export default function App() {
                       // we have created the roles object in the navigation builder
                       delete: authController.extra.roles.includes("admin")
                   })
-              })
+                }),
+                buildCollection({
+                    path: "food-recipes",
+                    schema: foodRecipeSchema,
+                    name: "Food Recipes",
+                    permissions: ({ authController}) => ({
+                        edit: true,
+                        create: true,
+                        delete: authController.extra.roles.includes("admin")
+                    }),
+                    subcollections: [
+                        buildCollection({
+                            name: "Ingredients",
+                            path: "ingredients",
+                            schema: ingredientsSchema
+                        }),
+                        buildCollection({
+                            name: "Methods",
+                            path: "methods",
+                            schema: methodsSchema
+                        })
+                    ]
+                }),
+                buildCollection({
+                    path: "drink-recipes",
+                    schema: drinkRecipeSchema,
+                    name: "Drink Recipes",
+                    permissions: ({ authController}) => ({
+                        edit: true,
+                        create: true,
+                        delete: authController.extra.roles.includes("admin")
+                    }),
+                    subcollections: [
+                        buildCollection({
+                            name: "Ingredients",
+                            path: "ingredients",
+                            schema: ingredientsSchema
+                        }),
+                        buildCollection({
+                            name: "Methods",
+                            path: "methods",
+                            schema: methodsSchema
+                        })
+                    ]
+                })
             ]
         });
     };
