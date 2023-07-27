@@ -57,6 +57,7 @@
     margin: 20px;
     position: relative;
     min-height: 300px;
+    overflow: hidden;
   }
 
   .card:hover,
@@ -108,7 +109,7 @@
   }
 
   .base {
+    @apply text-primary;
     font-weight: bold;
-    color: rgb(84, 221, 255);
   }
 </style>

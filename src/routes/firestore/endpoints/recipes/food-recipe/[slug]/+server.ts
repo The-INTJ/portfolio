@@ -4,12 +4,13 @@ import * as collectionConstants from "../../../../CollectionConstants";
 import Recipe from "../../../../models/Recipe";
 //import * as db from '$lib/database';
  
+// slug is a DocumentId
 /** @type {import('../models/Recipe').RequestHandler} */
-export async function POST({params}) {
+export async function GET({params}) {
     const collectionRef = collection(firestore, collectionConstants.FoodRecipes);
     const docRef = doc(collectionRef, params.slug);
     const docObj = await getDoc(docRef);
     const response = new Recipe(postToJSON(docObj));
-
+    
     return new Response(JSON.stringify(response));
 }
